@@ -61,12 +61,15 @@ function setupGame() {
 
                                     innerTable.style.border = "5px solid blue";
                                 }
-                                else {
+                                else if (tris.winner == 1) {
                                     innerTable.style.border = "5px solid red";
+                                }
+                                else {
+                                    innerTable.style.border = "5px solid black";
                                 }
                             }
 
-                            if (tris9.board[rowIndex][cellIndex].style.border != "5px solid blue" && tris9.board[rowIndex][cellIndex].style.border != "5px solid red") {
+                            if (tris9.board[rowIndex][cellIndex].style.border == "5px solid white") {
                                 tris9.board[rowIndex][cellIndex].style.border = "5px solid green";
                             }
                             else
