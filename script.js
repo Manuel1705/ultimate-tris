@@ -20,7 +20,6 @@ function setupGame() {
 
             const innerTable = document.createElement("table");
             innerTable.style.border = "5px solid white";
-            console.log(innerTable.style.border);
             const tris = new Tris();
 
             for (let k = 0; k < 3; k++) {
@@ -42,8 +41,6 @@ function setupGame() {
                     const cellIndex = target.cellIndex;
                     if (innerTable.style.border == "5px solid green" ||
                         (innerTable.style.border != "5px solid green" && validMove)) {
-                        console.log(innerTable.style.border);
-                        console.log(tris9.board[rowIndex][cellIndex].style.border);
 
                         if (target.textContent == "") {
 
@@ -155,7 +152,6 @@ class Tris {
             && this.board[0][2].textContent === this.board[1][1].textContent
             && this.board[1][1].textContent === this.board[2][0].textContent) {
             this.winner = this.board[0][2].textContent;
-            console.log(this.winner);
             return true;
         }
         return false;
