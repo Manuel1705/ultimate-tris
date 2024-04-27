@@ -94,6 +94,7 @@ function setupGame() {
                         }
                         setTimeout(() => {
                             alert("Player " + tris9.winner + " wins!");
+                            location.reload();
                         }
                             , 1000);
                     }
