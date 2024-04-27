@@ -4,7 +4,8 @@ function setupGame() {
     let validMove = true;
     const turnLabel = document.getElementById("turn");
     turnLabel.textContent = "Player 0's turn";
-    turnLabel.style.color = "blue";
+    turnLabel.style.color = "lightblue";
+    turnLabel.style.fontSize = "20px";
 
     const outerTable = document.createElement("table");
     const tris9 = new Tris9();
@@ -19,7 +20,7 @@ function setupGame() {
             let cell = row.insertCell();
 
             const innerTable = document.createElement("table");
-            innerTable.style.border = "5px solid white";
+            innerTable.style.border = "3px solid grey";
             const tris = new Tris();
 
             for (let k = 0; k < 3; k++) {
@@ -39,19 +40,19 @@ function setupGame() {
                     const target = event.target;
                     const rowIndex = target.parentElement.rowIndex;
                     const cellIndex = target.cellIndex;
-                    if (innerTable.style.border == "5px solid green" ||
-                        (innerTable.style.border != "5px solid green" && validMove)) {
+                    if (innerTable.style.border == "3px solid lightgreen" ||
+                        (innerTable.style.border != "3px solid lightgreen" && validMove)) {
 
                         if (target.textContent == "") {
 
                             validMove = false;
-                            target.parentElement.parentElement.parentElement.style.border = "5px solid white";
+                            target.parentElement.parentElement.parentElement.style.border = "3px solid grey";
                             target.textContent = tris9.currentPlayer;
                             tris.board[rowIndex][cellIndex].textContent = tris9.currentPlayer;
                             if (tris9.currentPlayer == 0)
-                                tris.board[rowIndex][cellIndex].style.color = "blue";
+                                tris.board[rowIndex][cellIndex].style.color = "lightblue";
                             else
-                                tris.board[rowIndex][cellIndex].style.color = "red";
+                                tris.board[rowIndex][cellIndex].style.color = "lightsalmon";
 
                             if (tris.checkWinner() || tris.checkDraw()) {
 
@@ -59,18 +60,18 @@ function setupGame() {
 
                                 if (tris.winner == 0) {
 
-                                    innerTable.style.border = "5px solid blue";
+                                    innerTable.style.border = "3px solid lightblue";
                                 }
                                 else if (tris.winner == 1) {
-                                    innerTable.style.border = "5px solid red";
+                                    innerTable.style.border = "3px solid lightsalmon";
                                 }
                                 else {
-                                    innerTable.style.border = "5px solid black";
+                                    innerTable.style.border = "3px solid black";
                                 }
                             }
 
-                            if (tris9.board[rowIndex][cellIndex].style.border == "5px solid white") {
-                                tris9.board[rowIndex][cellIndex].style.border = "5px solid green";
+                            if (tris9.board[rowIndex][cellIndex].style.border == "3px solid grey") {
+                                tris9.board[rowIndex][cellIndex].style.border = "3px solid lightgreen";
                             }
                             else
                                 validMove = true;
@@ -78,18 +79,18 @@ function setupGame() {
                             tris9.currentPlayer = (tris9.currentPlayer + 1) % 2;
                             turnLabel.textContent = "Player " + tris9.currentPlayer + "'s turn";
                             if (tris9.currentPlayer == 0)
-                                turnLabel.style.color = "blue";
+                                turnLabel.style.color = "lightblue";
                             else
-                                turnLabel.style.color = "red";
+                                turnLabel.style.color = "lightsalmon";
                         }
                     }
                     if (tris9.checkWinner()) {
                         turnLabel.textContent = "Player " + tris9.winner + " wins!";
                         if (tris9.winner == 0) {
-                            turnLabel.style.color = "blue";
+                            turnLabel.style.color = "lightblue";
                         }
                         else {
-                            turnLabel.style.color = "red";
+                            turnLabel.style.color = "lightsalmon";
                         }
                         setTimeout(() => {
                             alert("Player " + tris9.winner + " wins!");
@@ -190,10 +191,10 @@ class Tris9 {
 
     checkRows() {
         for (let i = 0; i < 3; i++) {
-            if (this.board[i][0].style.border !== "5px solid white"
+            if (this.board[i][0].style.border !== "3px solid grey"
                 && this.board[i][0].style.border === this.board[i][1].style.border
                 && this.board[i][1].style.border === this.board[i][2].style.border) {
-                if (this.board[i][0].style.border == "5px solid blue")
+                if (this.board[i][0].style.border == "3px solid lightblue")
                     this.winner = 0;
                 else
                     this.winner = 1;
@@ -206,10 +207,10 @@ class Tris9 {
 
     checkColumns() {
         for (let i = 0; i < 3; i++) {
-            if (this.board[0][i].style.border !== "5px solid white"
+            if (this.board[0][i].style.border !== "3px solid grey"
                 && this.board[0][i].style.border === this.board[1][i].style.border
                 && this.board[1][i].style.border === this.board[2][i].style.border) {
-                if (this.board[0][i].style.border == "5px solid blue")
+                if (this.board[0][i].style.border == "3px solid lightblue")
                     this.winner = 0;
                 else
                     this.winner = 1;
@@ -221,20 +222,20 @@ class Tris9 {
     }
 
     checkDiagonals() {
-        if (this.board[0][0].style.border !== "5px solid white"
+        if (this.board[0][0].style.border !== "3px solid grey"
             && this.board[0][0].style.border === this.board[1][1].style.border
             && this.board[1][1].style.border === this.board[2][2].style.border) {
-            if (this.board[0][0].style.border == "5px solid blue")
+            if (this.board[0][0].style.border == "3px solid lightblue")
                 this.winner = 0;
             else
                 this.winner = 1;
 
             return true;
         }
-        if (this.board[0][2].style.border !== "5px solid white"
+        if (this.board[0][2].style.border !== "3px solid grey"
             && this.board[0][2].style.border === this.board[1][1].style.border
             && this.board[1][1].style.border === this.board[2][0].style.border) {
-            if (this.board[0][2].style.border == "5px solid blue")
+            if (this.board[0][2].style.border == "3px solid lightblue")
                 this.winner = 0;
             else
                 this.winner = 1;
@@ -247,7 +248,7 @@ class Tris9 {
     checkDraw() {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (this.board[i][j].style.border === "5px solid white") {
+                if (this.board[i][j].style.border === "3px solid grey") {
                     return false;
                 }
             }
