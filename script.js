@@ -40,8 +40,8 @@ function setupGame() {
                     const target = event.target;
                     const rowIndex = target.parentElement.rowIndex;
                     const cellIndex = target.cellIndex;
-                    if (innerTable.style.border == "3px solid lightgreen" ||
-                        (innerTable.style.border != "3px solid lightgreen" && validMove)) {
+                    if (innerTable.style.border == "5px solid lightgreen" ||
+                        (innerTable.style.border != "5px solid lightgreen" && validMove)) {
 
                         if (target.textContent == "") {
 
@@ -60,10 +60,10 @@ function setupGame() {
 
                                 if (tris.winner == 0) {
 
-                                    innerTable.style.border = "3px solid lightblue";
+                                    innerTable.style.border = "5px solid lightblue";
                                 }
                                 else if (tris.winner == 1) {
-                                    innerTable.style.border = "3px solid lightsalmon";
+                                    innerTable.style.border = "5px solid lightsalmon";
                                 }
                                 else {
                                     innerTable.style.border = "3px solid black";
@@ -71,7 +71,7 @@ function setupGame() {
                             }
 
                             if (tris9.board[rowIndex][cellIndex].style.border == "3px solid grey") {
-                                tris9.board[rowIndex][cellIndex].style.border = "3px solid lightgreen";
+                                tris9.board[rowIndex][cellIndex].style.border = "5px solid lightgreen";
                             }
                             else
                                 validMove = true;
@@ -195,7 +195,7 @@ class Tris9 {
             if (this.board[i][0].style.border !== "3px solid grey"
                 && this.board[i][0].style.border === this.board[i][1].style.border
                 && this.board[i][1].style.border === this.board[i][2].style.border) {
-                if (this.board[i][0].style.border == "3px solid lightblue")
+                if (this.board[i][0].style.border == "5px solid lightblue")
                     this.winner = 0;
                 else
                     this.winner = 1;
@@ -211,7 +211,7 @@ class Tris9 {
             if (this.board[0][i].style.border !== "3px solid grey"
                 && this.board[0][i].style.border === this.board[1][i].style.border
                 && this.board[1][i].style.border === this.board[2][i].style.border) {
-                if (this.board[0][i].style.border == "3px solid lightblue")
+                if (this.board[0][i].style.border == "5px solid lightblue")
                     this.winner = 0;
                 else
                     this.winner = 1;
@@ -226,7 +226,7 @@ class Tris9 {
         if (this.board[0][0].style.border !== "3px solid grey"
             && this.board[0][0].style.border === this.board[1][1].style.border
             && this.board[1][1].style.border === this.board[2][2].style.border) {
-            if (this.board[0][0].style.border == "3px solid lightblue")
+            if (this.board[0][0].style.border == "5px solid lightblue")
                 this.winner = 0;
             else
                 this.winner = 1;
@@ -236,7 +236,7 @@ class Tris9 {
         if (this.board[0][2].style.border !== "3px solid grey"
             && this.board[0][2].style.border === this.board[1][1].style.border
             && this.board[1][1].style.border === this.board[2][0].style.border) {
-            if (this.board[0][2].style.border == "3px solid lightblue")
+            if (this.board[0][2].style.border == "5px solid lightblue")
                 this.winner = 0;
             else
                 this.winner = 1;
