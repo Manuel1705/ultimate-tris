@@ -2,15 +2,27 @@
 import { Tris9 } from "./Tris9.js";
 import { Tris } from "./Tris.js";
 
-let currentPlayer = 'X';
+const player1 = {
+    name: 'Player X',
+    cellMark: 'X',
+    color: 'lightblue',
+    borderColor: '5px solid lightblue'
+};
+const player2 = {
+    name: 'Player O',
+    cellMark: 'O',
+    color: 'salmon',
+    borderColor: '5px solid lightsalmon'
+};
+let currentPlayer = player1.cellMark;
+const validMoveColor = '5px solid lightgreen';
 const tris9 = new Tris9();
 setupGame();
 
 function setupGame() {
     const turnLabel = document.getElementById("turn");
-    turnLabel.textContent = "Player 0's turn";
-    turnLabel.style.color = "lightblue";
-    turnLabel.style.fontSize = "20px";
+    turnLabel.textContent = player1.name;
+    turnLabel.style.color = player1.color;
 
     const outerTable = createOuterTable(tris9);
 
@@ -26,7 +38,7 @@ function createOuterTable(tris9) {
             const cell = row.insertCell();
             const tris = new Tris();
             const innerTable = createInnerTable(tris);
-            innerTable.style.border = "5px solid lightgreen";
+            innerTable.style.border = validMoveColor;
             cell.appendChild(innerTable);
             tris9.board[rowIndex].push(innerTable);
         }
@@ -54,19 +66,16 @@ function handleCellClick(event, tris) {
     const cellIndex = target.cellIndex;
     const innerTable = target.closest("table");
 
-    if (innerTable.style.border != "5px solid lightgreen" || target.textContent != "") return;
+    if (innerTable.style.border != validMoveColor || target.textContent != "") return;
 
     setColorsForNextTurn(rowIndex, cellIndex);
 
-
-
     target.textContent = currentPlayer;
-    tris.board[rowIndex][cellIndex].style.color =
-        currentPlayer === 'X' ? "lightblue" : "lightsalmon";
+    target.style.color = currentPlayer === player1.cellMark ? player1.color : player2.color;
 
     if (tris.checkWinner()) {
         innerTable.style.border =
-            tris.winner == 'X' ? "5px solid lightblue" : "5px solid lightsalmon";
+            tris.winner == player1.cellMark ? player1.borderColor : player2.borderColor;
     }
 }
 
@@ -75,6 +84,11 @@ function setColorsForNextTurn(rowIndex, cellIndex) {
         for (const innerTable of row) {
             innerTable.style.border = "3px solid grey";
         }
+    }
+
+    const nextTable = tris9.board[rowIndex][cellIndex];
+    if (nextTable.style.border != player1.borderColor && nextTable.style.border != player2.borderColor) {
+        nextTable.style.border = validMoveColor;
     }
 
     tris9.board[rowIndex][cellIndex].style.border = "5px solid lightgreen";
