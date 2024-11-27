@@ -14,10 +14,11 @@ const player2 = {
     color: 'salmon',
     borderColor: '5px solid lightsalmon'
 };
-let currentPlayer = player1.cellMark;
+let currentPlayer = player1;
 const validMoveColor = '5px solid lightgreen';
 const invalidMoveColor = '3px solid grey';
-const tris9 = new Tris9();
+const drawColor = '5px solid white';
+const tris9 = new Tris9(invalidMoveColor, validMoveColor, player1.borderColor);
 setupGame();
 
 function setupGame() {
@@ -26,7 +27,6 @@ function setupGame() {
     turnLabel.style.color = player1.color;
 
     const outerTable = createOuterTable(tris9);
-
     document.getElementById("tris").appendChild(outerTable);
 }
 
@@ -67,20 +67,29 @@ function handleCellClick(event, tris) {
 
     if (innerTable.style.border != validMoveColor || target.textContent != "") return;
 
-    target.textContent = currentPlayer;
-    target.style.color = currentPlayer === player1.cellMark ? player1.color : player2.color;
-
-    if (tris.checkWinner()) {
-        innerTable.style.border =
-            tris.winner == player1.cellMark ? player1.borderColor : player2.borderColor;
-    }
+    target.textContent = currentPlayer.cellMark;
+    target.style.color = currentPlayer.cellMark === player1.cellMark ? player1.color : player2.color;
 
     const rowIndex = target.parentElement.rowIndex;
     const cellIndex = target.cellIndex;
     setColorsForNextTurn(rowIndex, cellIndex);
 
-}
+    if (tris.checkWinner()) {
+        innerTable.style.border = currentPlayer.borderColor;
+    } else if (tris.checkDraw()) {
+        innerTable.style.border = drawColor;
+    }
 
+    if (tris9.checkWinner()) {
+        alert(`${currentPlayer.name} wins!`);
+        location.reload();
+    } else if (tris9.checkDraw()) {
+        alert("It's a draw!");
+        location.reload();
+    }
+
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+}
 
 function setColorsForNextTurn(rowIndex, cellIndex) {
     colorPlayableTables(invalidMoveColor);
@@ -103,5 +112,4 @@ function colorPlayableTables(color) {
 
 function canBeNextPlayableTable(table) {
     return table.style.border != player1.borderColor && table.style.border != player2.borderColor;
-
 }

@@ -1,7 +1,6 @@
 export class Tris {
     constructor() {
         this.board = [];
-        this.winner = null;
     }
 
     checkWinner() {
@@ -13,7 +12,6 @@ export class Tris {
             if (this.board[i][0].textContent !== ""
                 && this.board[i][0].textContent === this.board[i][1].textContent
                 && this.board[i][1].textContent === this.board[i][2].textContent) {
-                this.winner = this.board[i][0].textContent;
                 return true;
             }
         }
@@ -25,7 +23,6 @@ export class Tris {
             if (this.board[0][i].textContent !== ""
                 && this.board[0][i].textContent === this.board[1][i].textContent
                 && this.board[1][i].textContent === this.board[2][i].textContent) {
-                this.winner = this.board[0][i].textContent;
                 return true;
             }
         }
@@ -33,19 +30,13 @@ export class Tris {
     }
 
     checkDiagonals() {
-        if (this.board[0][0].textContent !== ""
+        return (this.board[0][0].textContent !== ""
             && this.board[0][0].textContent === this.board[1][1].textContent
-            && this.board[1][1].textContent === this.board[2][2].textContent) {
-            this.winner = this.board[0][0].textContent;
-            return true;
-        }
-        if (this.board[0][2].textContent !== ""
-            && this.board[0][2].textContent === this.board[1][1].textContent
-            && this.board[1][1].textContent === this.board[2][0].textContent) {
-            this.winner = this.board[0][2].textContent;
-            return true;
-        }
-        return false;
+            && this.board[1][1].textContent === this.board[2][2].textContent)
+            ||
+            (this.board[0][2].textContent !== ""
+                && this.board[0][2].textContent === this.board[1][1].textContent
+                && this.board[1][1].textContent === this.board[2][0].textContent);
     }
 
     checkDraw() {
@@ -56,9 +47,6 @@ export class Tris {
                 }
             }
         }
-        if (this.winner == null)
-            this.winner = "draw";
-
         return true;
     }
 
