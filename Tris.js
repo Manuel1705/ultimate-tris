@@ -56,6 +56,10 @@ export class Tris {
                 }
             }
         }
+        if (this.winner == null)
+            this.winner = "draw";
+
         return true;
     }
+
 }

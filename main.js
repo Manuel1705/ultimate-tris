@@ -16,6 +16,7 @@ const player2 = {
 };
 let currentPlayer = player1.cellMark;
 const validMoveColor = '5px solid lightgreen';
+const invalidMoveColor = '3px solid grey';
 const tris9 = new Tris9();
 setupGame();
 
@@ -62,13 +63,9 @@ function createInnerTable(tris) {
 
 function handleCellClick(event, tris) {
     const target = event.target;
-    const rowIndex = target.parentElement.rowIndex;
-    const cellIndex = target.cellIndex;
     const innerTable = target.closest("table");
 
     if (innerTable.style.border != validMoveColor || target.textContent != "") return;
-
-    setColorsForNextTurn(rowIndex, cellIndex);
 
     target.textContent = currentPlayer;
     target.style.color = currentPlayer === player1.cellMark ? player1.color : player2.color;
@@ -77,19 +74,34 @@ function handleCellClick(event, tris) {
         innerTable.style.border =
             tris.winner == player1.cellMark ? player1.borderColor : player2.borderColor;
     }
+
+    const rowIndex = target.parentElement.rowIndex;
+    const cellIndex = target.cellIndex;
+    setColorsForNextTurn(rowIndex, cellIndex);
+
 }
 
+
 function setColorsForNextTurn(rowIndex, cellIndex) {
+    colorPlayableTables(invalidMoveColor);
+    const nextTable = tris9.board[rowIndex][cellIndex];
+    if (canBeNextPlayableTable(nextTable)) {
+        nextTable.style.border = validMoveColor;
+    } else {
+        colorPlayableTables(validMoveColor);
+    }
+}
+
+function colorPlayableTables(color) {
     for (const row of tris9.board) {
         for (const innerTable of row) {
-            innerTable.style.border = "3px solid grey";
+            if (canBeNextPlayableTable(innerTable))
+                innerTable.style.border = color;
         }
     }
+}
 
-    const nextTable = tris9.board[rowIndex][cellIndex];
-    if (nextTable.style.border != player1.borderColor && nextTable.style.border != player2.borderColor) {
-        nextTable.style.border = validMoveColor;
-    }
+function canBeNextPlayableTable(table) {
+    return table.style.border != player1.borderColor && table.style.border != player2.borderColor;
 
-    tris9.board[rowIndex][cellIndex].style.border = "5px solid lightgreen";
 }
