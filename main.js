@@ -70,10 +70,6 @@ function handleCellClick(event, tris) {
     target.textContent = currentPlayer.cellMark;
     target.style.color = currentPlayer.cellMark === player1.cellMark ? player1.color : player2.color;
 
-    const rowIndex = target.parentElement.rowIndex;
-    const cellIndex = target.cellIndex;
-    setColorsForNextTurn(rowIndex, cellIndex);
-
     if (tris.checkWinner()) {
         innerTable.style.border = currentPlayer.borderColor;
     } else if (tris.checkDraw()) {
@@ -87,6 +83,10 @@ function handleCellClick(event, tris) {
         alert("It's a draw!");
         location.reload();
     }
+
+    const rowIndex = target.parentElement.rowIndex;
+    const cellIndex = target.cellIndex;
+    setColorsForNextTurn(rowIndex, cellIndex);
 
     currentPlayer = currentPlayer === player1 ? player2 : player1;
 }

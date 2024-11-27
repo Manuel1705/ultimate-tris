@@ -54,7 +54,7 @@ export class Tris9 {
     checkDraw() {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (this.board[i][j].style.border === this.invalidMoveColor) {
+                if (this.board[i][j].style.border === this.invalidMoveColor || this.board[i][j].style.border === this.validMoveColor) {
                     return false;
                 }
             }
