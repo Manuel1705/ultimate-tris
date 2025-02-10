@@ -15,6 +15,9 @@ const player2 = {
     borderColor: '5px solid lightsalmon'
 };
 let currentPlayer = player1;
+const turnLabel = document.getElementById("turn");
+turnLabel.textContent = player1.name;
+turnLabel.style.color = player1.color;
 const validMoveColor = '5px solid lightgreen';
 const invalidMoveColor = '3px solid grey';
 const drawColor = '5px solid white';
@@ -88,7 +91,9 @@ function handleCellClick(event, tris) {
     const cellIndex = target.cellIndex;
     setColorsForNextTurn(rowIndex, cellIndex);
 
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    currentPlayer = currentPlayer == player1 ? player2 : player1;
+    turnLabel.textContent = currentPlayer.name;
+    turnLabel.style.color = currentPlayer.color;
 }
 
 function setColorsForNextTurn(rowIndex, cellIndex) {
