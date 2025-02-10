@@ -22,6 +22,7 @@ const validMoveColor = '5px solid lightgreen';
 const invalidMoveColor = '3px solid grey';
 const drawColor = '5px solid white';
 const tris9 = new Tris9(invalidMoveColor, validMoveColor, player1.borderColor);
+const socket = new WebSocket('ws://localhost:3000');
 setupGame();
 
 function setupGame() {
@@ -31,6 +32,24 @@ function setupGame() {
 
     const outerTable = createOuterTable(tris9);
     document.getElementById("tris").appendChild(outerTable);
+
+    socket.addEventListener('open', (event) => {
+        console.log('Connected to the server');
+    });
+
+    socket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data);
+        // Process the data, e.g., update game state or render opponent's move
+        console.log('Message from server: ', data);
+    });
+
+    socket.addEventListener('close', (event) => {
+        console.log('Disconnected from the server');
+    });
+
+    socket.addEventListener('error', (event) => {
+        console.error('WebSocket error:', event);
+    });
 }
 
 function createOuterTable(tris9) {
@@ -94,6 +113,15 @@ function handleCellClick(event, tris) {
     currentPlayer = currentPlayer == player1 ? player2 : player1;
     turnLabel.textContent = currentPlayer.name;
     turnLabel.style.color = currentPlayer.color;
+
+    const moveData = {
+        rowIndex: target.parentElement.rowIndex,
+        cellIndex: target.cellIndex,
+        mark: currentPlayer.cellMark,
+        player: currentPlayer.name,
+    };
+
+    socket.send(JSON.stringify(moveData));
 }
 
 function setColorsForNextTurn(rowIndex, cellIndex) {
