@@ -1,9 +1,10 @@
 export class Tris9 {
 
-    constructor(invalidMoveColor, validMoveColor, player1Color) {
+    constructor(invalidMoveColor, validMoveColor, player1Color, player2Color) {
         this.invalidMoveColor = invalidMoveColor;
         this.validMoveColor = validMoveColor;
         this.player1Color = player1Color;
+        this.player2Color = player2Color;
         this.board = [];
     }
 
@@ -16,7 +17,7 @@ export class Tris9 {
             if (this.board[i][0].style.border !== this.invalidMoveColor
                 && this.board[i][0].style.border === this.board[i][1].style.border
                 && this.board[i][1].style.border === this.board[i][2].style.border) {
-                if (this.board[i][0].style.border == this.player1Color)
+                if (this.board[i][0].style.border == this.player1Color || this.board[i][0].style.border == this.player2Color)
                     return true;
             }
         }
@@ -28,7 +29,7 @@ export class Tris9 {
             if (this.board[0][i].style.border !== this.invalidMoveColor
                 && this.board[0][i].style.border === this.board[1][i].style.border
                 && this.board[1][i].style.border === this.board[2][i].style.border) {
-                if (this.board[0][i].style.border == this.player1Color)
+                if (this.board[0][i].style.border == this.player1Color || this.board[0][i].style.border == this.player2Color)
                     return true;
             }
         }
@@ -39,13 +40,13 @@ export class Tris9 {
         if (this.board[0][0].style.border !== this.invalidMoveColor
             && this.board[0][0].style.border === this.board[1][1].style.border
             && this.board[1][1].style.border === this.board[2][2].style.border) {
-            if (this.board[0][0].style.border == this.player1Color)
+            if (this.board[0][0].style.border == this.player1Color || this.board[0][0].style.border == this.player2Color)
                 return true;
         }
         if (this.board[0][2].style.border !== this.invalidMoveColor
             && this.board[0][2].style.border === this.board[1][1].style.border
             && this.board[1][1].style.border === this.board[2][0].style.border) {
-            if (this.board[0][2].style.border == this.player1Color)
+            if (this.board[0][2].style.border == this.player1Color || this.board[0][2].style.border == this.player2Color)
                 return true;
         }
         return false;

@@ -21,7 +21,7 @@ turnLabel.style.color = player1.color;
 const validMoveColor = '5px solid lightgreen';
 const invalidMoveColor = '3px solid grey';
 const drawColor = '5px solid white';
-const tris9 = new Tris9(invalidMoveColor, validMoveColor, player1.borderColor);
+const tris9 = new Tris9(invalidMoveColor, validMoveColor, player1.borderColor, player2.borderColor);
 setupGame();
 
 function setupGame() {
