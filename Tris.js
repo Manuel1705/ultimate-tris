@@ -9,7 +9,7 @@ export class Tris {
 
     checkRows() {
         for (let i = 0; i < 3; i++) {
-            if (this.board[i][0].textContent !== ""
+            if (this.board[i][0].textContent !== "E"
                 && this.board[i][0].textContent === this.board[i][1].textContent
                 && this.board[i][1].textContent === this.board[i][2].textContent) {
                 return true;
@@ -20,7 +20,7 @@ export class Tris {
 
     checkColumns() {
         for (let i = 0; i < 3; i++) {
-            if (this.board[0][i].textContent !== ""
+            if (this.board[0][i].textContent !== "E"
                 && this.board[0][i].textContent === this.board[1][i].textContent
                 && this.board[1][i].textContent === this.board[2][i].textContent) {
                 return true;
@@ -30,11 +30,11 @@ export class Tris {
     }
 
     checkDiagonals() {
-        return (this.board[0][0].textContent !== ""
+        return (this.board[0][0].textContent !== "E"
             && this.board[0][0].textContent === this.board[1][1].textContent
             && this.board[1][1].textContent === this.board[2][2].textContent)
             ||
-            (this.board[0][2].textContent !== ""
+            (this.board[0][2].textContent !== "E"
                 && this.board[0][2].textContent === this.board[1][1].textContent
                 && this.board[1][1].textContent === this.board[2][0].textContent);
     }
@@ -42,7 +42,7 @@ export class Tris {
     checkDraw() {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (this.board[i][j].textContent === "") {
+                if (this.board[i][j].textContent === "E") {
                     return false;
                 }
             }

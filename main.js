@@ -57,6 +57,7 @@ function createInnerTable(tris) {
         tris.board.push([]);
         for (let cellIndex = 0; cellIndex < 3; cellIndex++) {
             const innerCell = innerRow.insertCell();
+            innerCell.textContent = "E";
             tris.board[rowIndex].push(innerCell);
         }
     }
@@ -68,10 +69,11 @@ function handleCellClick(event, tris) {
     const target = event.target;
     const innerTable = target.closest("table");
 
-    if (innerTable.style.border != validMoveColor || target.textContent != "") return;
+    if (innerTable.style.border != validMoveColor || target.textContent != "E") return;
 
     target.textContent = currentPlayer.cellMark;
     target.style.color = currentPlayer.cellMark === player1.cellMark ? player1.color : player2.color;
+    target.style.border = '3px solid ' + currentPlayer.color;
 
     if (tris.checkWinner()) {
         innerTable.style.border = currentPlayer.borderColor;
